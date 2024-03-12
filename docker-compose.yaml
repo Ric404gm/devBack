@@ -1,0 +1,21 @@
+version: "3.9" #Version de YAML
+services: #Servicios o contenedores a procesar
+  eiyulogincontainer-compose: #Nombre de contenedor
+    build: . #Ruta De donde tomar el docker composse
+    ports: #puertos  de nuestro contenedor anfitrion:docker
+      - "8070:8070" #puerto 
+    links:
+      - mongoPracticeCustom-compose   
+  mongoPracticeCustom-compose: #Nombre de contenedor
+    image: mongo #imagen base
+    ports: #puertos  de nuestro contenedor anfitrion:docker
+      - "27017:27017" 
+    environment: #variables de entorno para crear el connenedor
+      - MONGO_INITDB_ROOT_USERNAME=richie 
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+     - mongo-data:/data/db #nombre del la carpeta donde mongo guarda la data
+     # mysql /var/lib/mysql
+     #postgres   /var/lib/posrgresql/data 
+volumes: #Se indica que vendra un bloque declarativo de volumenes
+  mongo-data: #nombre del volumen
